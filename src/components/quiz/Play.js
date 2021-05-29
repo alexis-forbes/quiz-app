@@ -371,6 +371,7 @@ class Play extends Component {
           time: {
             minutes,
             seconds,
+            distance,
           },
         });
       }
@@ -411,14 +412,12 @@ class Play extends Component {
     const playerStats = {
       score: state.score,
       numberOfQuestions: state.numberOfQuestions,
-      numberOfAnsweredQuestions:
-        state.numberOfQuestions - (state.correctAnswers + state.wrongAnswers),
+      numberOfAnsweredQuestions: state.correctAnswers + state.wrongAnswers,
       correctAnswers: state.correctAnswers,
       wrongAnswers: state.wrongAnswers,
       fiftyFiftyUsed: 1 - state.fiftyFifty,
       hintsUsed: 3 - state.hints,
     };
-    console.log(playerStats);
     setTimeout(() => {
       this.props.history.push("/play/quizSummary", playerStats);
     }, 1000);

@@ -19,40 +19,43 @@ class QuizSummary extends Component {
 
   componentDidMount() {
     const { state } = this.props.location;
-    this.setState({
-      score: (state.score / state.numberOfQuestions) * 100,
-      numberOfQuestions: state.numberOfQuestions,
-      numberOfAnsweredQuestions: state.numberOfAnsweredQuestions,
-      correctAnswers: state.correctAnswers,
-      wrongAnswers: state.wrongAnswers,
-      fiftyFiftyUsed: state.fiftyFiftyUsed,
-      hintsUsed: state.hintsUsed,
-    });
+    if (state) {
+      this.setState({
+        score: (state.score / state.numberOfQuestions) * 100,
+        numberOfQuestions: state.numberOfQuestions,
+        numberOfAnsweredQuestions: state.numberOfAnsweredQuestions,
+        correctAnswers: state.correctAnswers,
+        wrongAnswers: state.wrongAnswers,
+        fiftyFiftyUsed: state.fiftyFiftyUsed,
+        hintsUsed: state.hintsUsed,
+      });
+    }
   }
   render() {
-    const { state, score } = this.props.location;
+    const { state } = this.props.location;
     let stats, remark;
+    const userScore = this.state.score;
 
-    if (score <= 30) {
+    if (userScore <= 30) {
       remark = "You need more practice!";
-    } else if (score > 30 && score <= 50) {
+    } else if (userScore > 30 && userScore <= 50) {
       remark = "Better luck next time";
-    } else if (score <= 70 && score > 50) {
+    } else if (userScore <= 70 && userScore > 50) {
       remark = "You can do better!";
-    } else if (score >= 71 && score <= 84) {
+    } else if (userScore >= 71 && userScore <= 84) {
       remark = "You did great!";
     } else {
-      remark = "You are an absolute genius!";
+      remark = "You're an absolute genius!";
     }
 
     if (state !== undefined) {
       stats = (
         <Fragment>
-          <div>
+          <div style={{ textAlign: "center" }}>
             <span className="mdi mdi-check-circle-outline success-icon"></span>
           </div>
           <h1>Quiz ended</h1>
-          <div className="container">
+          <div className="container stats">
             <h4>{remark}</h4>
             <h2>Your Score: {this.state.score.toFixed(0)}&#37;</h2>
             <span className="stat left">Total number of questions: </span>
@@ -85,8 +88,11 @@ class QuizSummary extends Component {
           <section>
             <ul>
               <li>
-                <Link to="/">HOME</Link>
                 <Link to="/play/quiz">PLAY AGAIN!</Link>
+              </li>
+
+              <li>
+                <Link to="/">HOME</Link>
               </li>
             </ul>
           </section>
@@ -95,15 +101,20 @@ class QuizSummary extends Component {
     } else {
       stats = (
         <Fragment>
-          <h1 className="no-stats">
-            No statistics available, please PLAY THE GAME!{" "}
-          </h1>
-          <ul>
-            <li>
-              <Link to="/">HOME</Link>
-              <Link to="/play/quiz">PLAY AGAIN!</Link>
-            </li>
-          </ul>
+          <section>
+            <h1 className="no-stats">
+              No statistics available, please PLAY THE GAME!{" "}
+            </h1>
+            <ul>
+              <li>
+                <Link to="/play/quiz">PLAY AGAIN!</Link>
+              </li>
+
+              <li>
+                <Link to="/">HOME</Link>
+              </li>
+            </ul>
+          </section>
         </Fragment>
       );
     }
@@ -112,7 +123,7 @@ class QuizSummary extends Component {
         <Helmet>
           <title>Quiz App - Summary</title>
         </Helmet>
-        {stats}
+        <div className="quiz-summary">{stats}</div>
       </Fragment>
     );
   }
