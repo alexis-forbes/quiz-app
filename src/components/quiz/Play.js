@@ -28,6 +28,8 @@ class Play extends Component {
       hints: 3,
       fiftyFifty: 1,
       usedFiftyFifty: false,
+      plusTen: 1, 
+      usedPlusTen: false,
       nextButtonDisabled: false,
       previousButtonDisabled: true,
       previousRandomNumbers: [],
@@ -344,6 +346,14 @@ class Play extends Component {
     }
   };
 
+  handlePlusTen = () => {
+    if (this.state.plusTen > 0 && this.state.usedPlusTen === false) {
+
+    }
+  }
+
+
+
   startTimer = () => {
     const countDownTime = Date.now() + 17000;
     this.interval = setInterval(() => {
@@ -377,6 +387,7 @@ class Play extends Component {
       }
     }, 1000);
   };
+
 
   handleDisableButton = () => {
     if (
@@ -431,6 +442,7 @@ class Play extends Component {
       hints,
       numberOfQuestions,
       time,
+      plusTen,
     } = this.state;
     return (
       <Fragment>
@@ -455,12 +467,12 @@ class Play extends Component {
             </p>
             <p>
               <span>
-                <RiHeartAddLine
+                <RiHeartAddLine 
+                  onClick={this.handlePlusTen}
                   className="ten-seconds lifeline-icon"
                   size="24px"
-                />
+                /><span className="lifeline">{plusTen}</span>
               </span>
-              1
             </p>
             <p>
               <span
