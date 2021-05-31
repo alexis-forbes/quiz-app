@@ -50,9 +50,8 @@
     cursor: pointer;
     font-weight: $md;
     margin-top: $xlg;
-    margin-right: $sm;
     margin-bottom: $xlg;
-    padding: $xs $normal;
+    padding: $xs $xs;
     box-shadow: $shadow;
     transition: 0.2 linear all;
   }
@@ -74,9 +73,8 @@
     cursor: pointer;
     font-weight: $md;
     margin-top: $xlg;
-    margin-right: $sm;
     margin-bottom: $xlg;
-    padding: $xs $normal;
+    padding: $xs $xs;
     box-shadow: $shadow;
     transition: 0.2 linear all;
   }
@@ -94,5 +92,15 @@
   .instructions img {
     width: 100% !important ;
     height: 150% !important;
+  }
+
+  .take-me-back {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .lets-do-this {
+    padding-left: 5px;
+    padding-right: 5px;
   }
 }

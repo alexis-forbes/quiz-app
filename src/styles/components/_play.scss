@@ -52,6 +52,7 @@
   .options-container {
     display: inline-block;
     width: 50%;
+    margin: 0 auto;
   }
 
   .option {
@@ -120,4 +121,44 @@
 
 .button-container button:last-child:hover {
   background-color: darken($red, 20%);
+}
+
+//Media Queries
+
+@media (max-width: $md-breakpoint) {
+  h2 {
+    font-size: $md;
+    margin-bottom: $lg;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  h5 {
+    font-size: $sm !important;
+    margin-bottom: $md !important;
+    line-height: 1.5 !important;
+    text-align: center !important;
+  }
+  .options-container {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  .questions {
+    width: 90% !important;
+    height: 90% !important;
+    margin: $lg auto 0 auto;
+    padding: $sm $md;
+  }
+
+  .button-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center;
+    margin: 0 100px !important;
+    padding: $normal !important;
+    width: 40% !important;
+    cursor: pointer;
+  }
 }
