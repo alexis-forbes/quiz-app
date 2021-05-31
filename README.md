@@ -10,10 +10,11 @@ In the project directory, you can run:
 
 Make sure to set up your environment before running the app. In order to create a successful React development make sure to have the following:
 
+- React
 - NodeJs
 - NPM
 
-Also, make sure to install all dependencies in the projecto to run correctly.
+Also, make sure to install all dependencies in the project to run correctly.
 
 Enter: `npm i`
 
