@@ -10,13 +10,14 @@ import correctNotification from "../../assets/audio/correct-answer.mp3";
 import wrongNotification from "../../assets/audio/wrong-answer.mp3";
 import buttonSound from "../../assets/audio/button-sound.mp3";
 
+//creating our components for logic
 class Play extends Component {
   constructor(props) {
     super(props);
     this.state = {
       questions: [],
-      currentQuestion: {}, //object
-      nextQuestion: {}, //empty by default
+      currentQuestion: {},
+      nextQuestion: {},
       previousQuestion: {},
       answer: "",
       numberOfQuestions: 0,
@@ -44,13 +45,15 @@ class Play extends Component {
     this.buttonSound = React.createRef();
   }
 
+  //Gets called when our component gets mount
+  //We call our fetching function and update the state
+  //Minizing errors when updating state
+  //Displaying the questions
   componentDidMount() {
-    //Gets called when our component gets mount
     getQuestions().then((res) => {
       this.setState({
         questions: res,
       });
-      // this.state.questions = res;
       const { questions, currentQuestion, nextQuestion, previousQuestion } =
         this.state;
       this.displayQuestions(
@@ -62,10 +65,17 @@ class Play extends Component {
     });
   }
 
+  //Unmounting the interval
+  //stopping count
   componentWillUnmount() {
     clearInterval(this.interval);
   }
 
+  //Method to display questions
+  //Reads current status of questions and index
+  //Updates status
+  //Connected to 'previous' 'next' and 'quit' buttons
+  //Enables and disables the buttons
   displayQuestions = (
     questions = this.state.questions,
     currentQuestion,
@@ -99,9 +109,9 @@ class Play extends Component {
     }
   };
 
-  //check if user selected the right option
+  //Check if user selected the right option
+  //If the innerHTML target === answer in our state, the option is correct
   handleOptionClick = (e) => {
-    //if the innerHTML target === answer in our state, the option is correct
     if (e.target.innerHTML.toLowerCase() === this.state.answer.toLowerCase()) {
       this.correctAnswer();
     } else {
@@ -109,8 +119,10 @@ class Play extends Component {
     }
   };
 
+  //Handler for the 'next' button
+  //Checks if there is next question
+  //Also updates the questions state
   handleNextButtonClick = () => {
-    //check if there is next question
     this.playButtonSound();
     if (this.state.nextQuestion !== undefined) {
       this.setState(
@@ -129,8 +141,11 @@ class Play extends Component {
     }
   };
 
+  //Checks if there is next question
+  //Checks if there is a previous question
+  //Avoids going to -1 question
+  //Also updates the questions state
   handlePreviousButtonClick = () => {
-    //check if there is next question
     this.playButtonSound();
     if (this.state.previousQuestion !== undefined) {
       this.setState(
@@ -149,6 +164,10 @@ class Play extends Component {
     }
   };
 
+  //Handler for the Quit button
+  //Launches alert for quiting game
+  //Returns to Home
+  //Also updates the questions state
   handleQuitButtonClick = () => {
     this.playButtonSound();
     if (window.confirm("Are you sure you want to quit?")) {
@@ -156,6 +175,9 @@ class Play extends Component {
     }
   };
 
+  //General handler switch for the buttons
+  //'previous' 'next 'quit'
+  //for maintenance and no continuous calling
   handleButtonClick = (e) => {
     switch (e.target.id) {
       case "next-button":
@@ -175,16 +197,21 @@ class Play extends Component {
     }
   };
 
+  //General sound button handler
   playButtonSound = () => {
     this.buttonSound.current.play();
   };
 
-  //logic to handle the correct question
+  //Logic to handle the correct question
+  //Updates it state
+  //Takes an array of classes to style our toast
+  //Awaits 1500ms
+  //Shows toast to user for UX/UI experience
   correctAnswer = () => {
     this.correctSound.current.play();
     M.toast({
       html: "Correct Answer!",
-      classes: "toast-valid", //takes an array of classes to style our toast
+      classes: "toast-valid",
       displayLength: 1500,
     });
     this.setState(
@@ -209,14 +236,18 @@ class Play extends Component {
     );
   };
 
-  //logic to handle the correct question
+  //Logic to handle the wrong question
+  //Updates it state
+  //Takes an array of classes to style our toast
+  //Awaits 1500ms
+  //Shows toast to user for UX/UI experience
+  //Mobile device will vibrate for UX/UI experience
   wrongAnswer = () => {
     this.wrongSound.current.play();
-    //mobile device will vibrate
     navigator.vibrate(1000);
     M.toast({
       html: "Wrong Answer!",
-      classes: "toast-invalid", //takes an array of classes to style our toast
+      classes: "toast-invalid",
       displayLength: 1500,
     });
     this.setState(
@@ -224,7 +255,7 @@ class Play extends Component {
         wrongAnswers: prevState.wrongAnswers + 1,
         currentQuestionIndex: prevState.currentQuestionIndex + 1,
         numberOfAnsweredQuestions: prevState.numberOfAnsweredQuestions,
-      }), //after function to display the updated state
+      }),
       () => {
         if (this.state.nextQuestion === undefined) {
           this.endGame();
@@ -240,6 +271,9 @@ class Play extends Component {
     );
   };
 
+  //Shows options after hiding them
+  //Selects the options from the document and makes them visible again
+  //After applying 50/50 or hints
   showOptions = () => {
     const options = Array.from(document.querySelectorAll(".option"));
 
@@ -254,15 +288,17 @@ class Play extends Component {
     });
   };
 
+  //Hints handler
+  //3 hints to hide wrong options
+  //Retrieves visible options like an array
+  //Reads from the correct answer index
+  //Updates its state
+  //Displays the remaining options after hiding
   handleHints = () => {
     if (this.state.hints > 0) {
-      //retrieve options like an array
       const allOptions = Array.from(document.querySelectorAll(".option"));
-      //retrieve visible options like an array
       let visibleOptions = allOptions.filter((f) => !this.isHidden(f));
-      //get index of options that has the answers
       let indexOfAnswer;
-      //store answer in index
       visibleOptions.forEach((option, index) => {
         if (
           option.innerHTML.toLowerCase() === this.state.answer.toLowerCase()
@@ -271,24 +307,26 @@ class Play extends Component {
         }
       });
 
+      //Making sure what is hidden is only wrong answers
       const maxRandom = visibleOptions.length - 1;
 
-      //Generate random# for answer 0-3
+      //Generates random number for answers 0-3
+      //Check random number is not the same as index of our answer
+      //Making sure its the right answer
       while (true) {
         const randomNumber = Math.round(Math.random() * maxRandom);
-        //check random# is not the same as index of our answer
-        //if its the same, we know its the right answer
+
         if (
           randomNumber !== indexOfAnswer &&
           !this.state.previousRandomNumbers.includes(randomNumber)
         ) {
-          //look through each option and if it matches index fo random# hidden
+          //looks through each option and if it matches index fo random number hidden
           visibleOptions.forEach((option, index) => {
             if (index === randomNumber) {
               option.style.visibility = "hidden";
               this.setState((prevState) => ({
                 hints: prevState.hints - 1,
-                //append random# generated up to our previousrandom# state in our array
+                //appends random number generated up to our previousRandomNumber state in our array
                 previousRandomNumbers:
                   prevState.previousRandomNumbers.concat(randomNumber),
               }));
@@ -296,16 +334,21 @@ class Play extends Component {
           });
           break;
         }
+        //Breaks for no further callings
         if (this.state.previousRandomNumbers.length >= maxRandom) break;
       }
     }
   };
 
+  //isHidden function to check if element is visible
   isHidden = (el) => {
     var style = window.getComputedStyle(el);
     return style.display === "none" || style.visibility === "hidden";
   };
 
+  //50/50 handler
+  //Reads index, feeds from state, updates state
+  //Only can be used if never used
   handleFiftyFifty = () => {
     if (this.state.fiftyFifty > 0 && this.state.usedFiftyFifty === false) {
       const options = document.querySelectorAll(".option");
@@ -319,7 +362,8 @@ class Play extends Component {
           indexOfAnswer = index;
         }
       });
-      //generate random#
+      //Generate randomNumber to only hide 3 out of 4 options
+      //That do not match the correct answer
       let count = 0;
       do {
         const randomNumber = Math.round(Math.random() * 3);
@@ -351,6 +395,7 @@ class Play extends Component {
           option.style.visibility = "hidden";
         }
       });
+      //Updates it state after being used
       this.setState((prevState) => ({
         fiftyFifty: prevState.fiftyFifty - 1,
         usedFifty: true,
@@ -358,6 +403,10 @@ class Play extends Component {
     }
   };
 
+  //+10s handler
+  //Adds ten seconds to total time
+  //Can oly be used once
+  //Checks its state
   handlePlusTen = () => {
     if (
       !this.state.activePlusTen &&
@@ -372,6 +421,9 @@ class Play extends Component {
     }
   };
 
+  //StartTimer 15 secons
+  //Updates its state after being used
+  //Also checks distance
   startTimer = () => {
     clearInterval(this.interval);
     let countDownTime = Date.now() + 16000;
@@ -415,6 +467,8 @@ class Play extends Component {
     }, 0);
   };
 
+  //Button disabler to not go back to -1 question
+  //Continous update and check
   handleDisableButton = () => {
     if (
       this.state.previousQuestion === undefined ||
@@ -443,6 +497,8 @@ class Play extends Component {
     }
   };
 
+  //Ends the game with an alert
+  //Furthers to quizSummary to review playerStats
   endGame = () => {
     alert("Quiz has ended!");
     const { state } = this;
@@ -458,6 +514,7 @@ class Play extends Component {
     this.props.history.push("/play/quizSummary", playerStats);
   };
 
+  //rendered components to display
   render() {
     const {
       currentQuestion,

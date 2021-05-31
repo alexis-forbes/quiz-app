@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import Home from "./components/Home";
+import Home from "./components/quiz/Home";
 import QuizInstructions from "./components/quiz/QuizInstructions";
-import Play from "./components/quiz/Play";
+import Play from "./components/logic/Play";
 import QuizSummary from "./components/quiz/QuizSummary";
 
 function App() {

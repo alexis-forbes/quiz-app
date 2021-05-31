@@ -6,6 +6,17 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+### Running Requirements
+
+Make sure to set up your environment before running the app. In order to create a successful React development make sure to have the following:
+
+- NodeJs
+- NPM
+
+Also, make sure to install all dependencies in the projecto to run correctly.
+
+Enter: `npm i`
+
 ### `npm start`
 
 Runs the app in the development mode.\
@@ -18,6 +29,17 @@ You will also see any lint errors in the console.
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+Tests have been created in './src/App.test.js' for organization and functional purposes. Due to the logic of the app being in 'components/logic/Play.js' for scalable and test purposes, you can review the unit tests at one sight.
+
+TESTS:
+
+- Verifying if questions are retrieved on load from the server layer 'services/questions-service'.
+- Verifying if title is being retrieved correctly.
+- Verifying plusTen lifeline.
+- Making plusTen lifeline fail.
+- Verifying plusTen onClick with 25seconds.
+- Verifying if firstQuestion is not answered, the secondQuestions displays on load.
 
 ### `npm run build`
 
