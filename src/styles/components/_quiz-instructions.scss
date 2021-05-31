@@ -1,6 +1,11 @@
+* {
+  font-family: $roboto;
+}
+
 .instructions {
   border: 1px solid darken($off-white, 10%);
-  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 20px;
   margin-top: $lg;
   margin-bottom: $lg;
   padding: $sm $lg;
@@ -18,7 +23,7 @@
   }
 
   .lifeline-icon {
-    color: $green;
+    color: $red;
     cursor: pointer;
   }
 
@@ -29,10 +34,59 @@
   }
 
   img {
+    display: block;
+    align-items: center;
     width: 80%;
     height: 50%;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: 20px auto 20px auto;
+  }
+
+  .take-me-back {
+    display: block;
+    align-items: center;
+    background-color: $blue;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: $md;
+    margin-top: $xlg;
+    margin-right: $sm;
+    margin-bottom: $xlg;
+    padding: $xs $normal;
+    box-shadow: $shadow;
+    transition: 0.2 linear all;
+  }
+
+  .take-me-back:hover {
+    background-color: darken($blue, 10%);
+  }
+
+  .take-me-back a {
+    color: $off-white;
+  }
+
+  .lets-do-this {
+    display: block;
+    align-items: center;
+    background-color: $red;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: $md;
+    margin-top: $xlg;
+    margin-right: $sm;
+    margin-bottom: $xlg;
+    padding: $xs $normal;
+    box-shadow: $shadow;
+    transition: 0.2 linear all;
+  }
+
+  .lets-do-this:hover {
+    background-color: darken($red, 10%);
+  }
+
+  .lets-do-this a {
+    color: $off-white;
   }
 }
 

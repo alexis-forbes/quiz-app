@@ -1,83 +1,83 @@
 [
   {
-    "question": "What temperature does water boil at?",
-    "optionA": "50 degrees Celcius",
-    "optionB": "25 degrees Celcius",
-    "optionC": "100 degrees Celcius",
-    "optionD": "150 degrees Celcius",
-    "answer": "100 degrees Celcius"
+    "question": "What is Jayway commited to?",
+    "optionA": "Measurable goals",
+    "optionB": "Iteration",
+    "optionC": "Client relationships",
+    "optionD": "Assumptions",
+    "answer": "Client relationships"
   },
 
   {
-    "question": "Who wrote Julius Caesar, Macbeth and Hamlet?",
-    "optionA": "Wole Soyinka",
-    "optionB": "William Shakespeare",
-    "optionC": "Ngozi Chimamanda Adichie",
-    "optionD": "Dan Brown",
-    "answer": "William Shakespeare"
+    "question": "Which of the following companies is a Jayway partner?",
+    "optionA": "Amazon Web Services",
+    "optionB": "Facebook",
+    "optionC": "IMB",
+    "optionD": "Volvo",
+    "answer": "Amazon Web Services"
   },
 
   {
-    "question": "What did the crocodile swallow in Peter Pan?",
-    "optionA": "A Book",
-    "optionB": "A Computer",
-    "optionC": "A pair of shoes",
-    "optionD": "Alarm Clock",
-    "answer": "Alarm Clock"
+    "question": "Which of the following cities has a Jayway office?",
+    "optionA": "Madrid",
+    "optionB": "Malmö",
+    "optionC": "Paris",
+    "optionD": "New York",
+    "answer": "Malmö"
   },
 
   {
-    "question": "Which is the only mammal that can’t jump?",
-    "optionA": "Dog",
-    "optionB": "Elephant",
-    "optionC": "Goat",
-    "optionD": "Lion",
-    "answer": "Elephant"
-  },
-
-  {
-    "question": "Who lived at 221B, Baker Street, London?",
-    "optionA": "Tony Stark",
-    "optionB": "Morgan Freeman",
-    "optionC": "Sherlock Holmes",
-    "optionD": "Samuel L. Jackson",
-    "answer": "Sherlock Holmes"
-  },
-
-  {
-    "question": "What colour is a panda?",
-    "optionA": "Green and Yellow",
-    "optionB": "Blue and Red",
-    "optionC": "Green and White",
-    "optionD": "Black and White",
-    "answer": "Black and White"
-  },
-
-  {
-    "question": "Where is the smallest bone in the human body?",
-    "optionA": "The Chest",
-    "optionB": "The Ear",
-    "optionC": "The Legs",
-    "optionD": "The Hands",
-    "answer": "The Ear"
-  },
-
-  {
-    "question": "What does the roman numeral C represent?",
-    "optionA": "100",
+    "question": "How many years has Jayway been in the business?",
+    "optionA": "30",
     "optionB": "10",
-    "optionC": "10,000",
-    "optionD": "1,000,000",
-    "answer": "100"
+    "optionC": "20",
+    "optionD": "40",
+    "answer": "20"
   },
 
   {
-    "question": "What takes place in Hong Kong's Happy Valley?",
-    "optionA": "Chicken Wrestling",
-    "optionB": "Horse racing",
-    "optionC": "Street Racing",
-    "optionD": "Arm Wrestling",
-    "answer": "Horse racing"
+    "question": "How many projects and products has Jayway built?",
+    "optionA": "More than 100",
+    "optionB": "More than 900",
+    "optionC": "More than 1200",
+    "optionD": "More than 2500",
+    "answer": "More than 1200"
+  },
+
+  {
+    "question": "What ideas does Jayway share on their blog?",
+    "optionA": "Tech and good practices ",
+    "optionB": "Tech and food",
+    "optionC": "Tech and insight ideas",
+    "optionD": "Tech and organizing",
+    "answer": "Tech and insight ideas"
+  },
+
+  {
+    "question": "Which of the following projects was developed by Jayway?",
+    "optionA": "Bill pay",
+    "optionB": "Billum pay",
+    "optionC": "Telm pay",
+    "optionD": "Telia pay",
+    "answer": "Telia pay"
+  },
+
+  {
+    "question": "Does Jayway have an Immersive Lab?",
+    "optionA": "You betcha they do!",
+    "optionB": "They wish...",
+    "optionC": "No",
+    "optionD": "I don't know",
+    "answer": "You betcha they do!"
+  },
+
+  {
+    "question": "What did Jayway develop in the Massive entertainment project?",
+    "optionA": "A videogame",
+    "optionB": "An advertisement",
+    "optionC": "A high-quality website",
+    "optionD": "A banking app",
+    "answer": "A high-quality website"
   },
 
   {
@@ -87,5 +87,50 @@
     "optionC": "Leonardo Da Vinci",
     "optionD": "Albert Einstein",
     "answer": "Leonardo Da Vinci"
+  },
+
+  {
+    "question": "Which of the following represents Jayway's goal?",
+    "optionA": "Personal growth",
+    "optionB": "Business insights",
+    "optionC": "Grow great digital mindst",
+    "optionD": "Generating revenue",
+    "answer": "Grow great digital minds"
+  },
+
+  {
+    "question": "Which of the following products has Jayway part taking in?",
+    "optionA": "Resound reflief",
+    "optionB": "Candy Crush",
+    "optionC": "Lenovo's Dell",
+    "optionD": "Touch bracelets",
+    "answer": "Resound reflief"
+  },
+
+  {
+    "question": "Which of the following companies belong to Jayway's family?",
+    "optionA": "Future of Tech",
+    "optionB": "Lifehacker",
+    "optionC": "Hack a Day",
+    "optionD": "Forever Geek",
+    "answer": "Future of Tech"
+  },
+
+  {
+    "question": "Which is a Jayway data principle?",
+    "optionA": "Data as a business",
+    "optionB": "Data as design",
+    "optionC": "Data as a product",
+    "optionD": "Data as itiration",
+    "answer": "Data as a product"
+  },
+
+  {
+    "question": "Is Jayway one of the coolest companies to work for?",
+    "optionA": "For sure!",
+    "optionB": "No way",
+    "optionC": "Nope",
+    "optionD": "I don't know",
+    "answer": "For sure!"
   }
 ]

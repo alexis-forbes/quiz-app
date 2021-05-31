@@ -1,5 +1,5 @@
 #home {
-  background-image: url("../../assets/img/background1.jpg");
+  background-image: url("../../assets/img/FONCO-2.jpg");
   background-size: cover;
   background-position: center;
   display: flex;
@@ -8,7 +8,8 @@
   width: 100vw;
 
   section {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(202, 200, 200, 0.1);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     border-radius: 20px;
     padding-left: $md;
     padding-right: $md;
@@ -20,22 +21,35 @@
   .note-icon {
     margin-top: 50px;
     font-size: 8rem;
-    color: $orange;
+    color: $blue;
   }
 
   h1 {
     font-size: $lg;
     font-weight: 400;
     text-align: center;
-    color: $off-white;
+    color: $off-black;
+    margin: 20px auto;
+  }
+
+  h5 {
+    font-size: $sm;
+    font-weight: 400;
+    text-align: center;
+    padding-top: $normal;
+    color: $off-black;
   }
 
   .play-button-container {
-    width: 100%;
+    display: block;
+    align-items: center;
+    margin: 0 auto;
+    padding-top: $lg;
+    width: 50%;
   }
 
   a.play-button {
-    background-color: $green;
+    background-color: $red;
     border-radius: $button-radius;
     color: #fff;
     display: block;
@@ -46,7 +60,7 @@
   }
 
   a.play-button:hover {
-    background-color: darken($green, 10%);
+    background-color: darken($red, 10%);
     box-shadow: $shadow;
   }
 
@@ -84,6 +98,14 @@
     transition: 0.3s linear all;
 
     width: 45%;
+  }
+
+  .coded-by {
+    font-size: $normal;
+    font-weight: 400;
+    text-align: center;
+    padding-top: $md;
+    color: $off-black;
   }
 }
 

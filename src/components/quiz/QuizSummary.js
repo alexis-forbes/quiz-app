@@ -85,6 +85,7 @@ class QuizSummary extends Component {
             <span className="stat left">Total number of 50-50 Used: </span>
             <span className="right">{this.state.fiftyFiftyUsed}</span>
           </div>
+
           <section>
             <ul>
               <li>

@@ -1,13 +1,21 @@
-.quiz-summary {
+* {
   font-family: $roboto;
+}
+
+.quiz-summary {
+  background-image: url("../../assets/img/FONCO-2.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  width: 100vw;
 
   span.success-icon {
-    color: $green;
-    font-size: $xxlg;
+    color: $red;
+    font-size: $xlg;
   }
 
   h1 {
-    color: $green;
+    color: $red;
     text-align: center;
     font-size: $lg;
     margin-top: -$sm;
@@ -15,6 +23,7 @@
 
   h2 {
     color: $blue;
+    font-size: $lg;
   }
 
   h4 {
@@ -22,8 +31,11 @@
   }
 
   .stats {
-    background-color: $off-white;
+    background-color: rgba(202, 200, 200, 0.1);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 20px;
     max-width: 50%;
+    height: 60%;
     padding: $sm $md $md $md;
   }
 
@@ -55,26 +67,47 @@
   }
 
   section ul li:first-child {
-    border: 1px solid $blue;
-    margin-right: $sm;
-    transition: 0.3s linear all;
+    background-color: $blue;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: $md;
+    margin-right: $md;
+    padding: $xs $md;
+    box-shadow: $shadow;
+    transition: 0.2 linear all;
   }
 
   section ul li:first-child:hover {
-    background-color: $blue;
+    background-color: darken($blue, 10%);
   }
 
   section ul li:last-child {
-    border: 1px solid $green;
-    transition: 0.3s linear all;
+    background-color: $red;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: $md;
+    margin-right: $md;
+    padding: $xs $md;
+    box-shadow: $shadow;
+    transition: 0.2 linear all;
   }
 
   section ul li:last-child:hover {
-    background-color: $green;
+    background-color: darken($red, 10%);
+  }
+
+  section ul li:first-child a {
+    color: $off-white;
+  }
+
+  section ul li:first-child a:hover {
+    color: $off-white;
   }
 
   section ul li:last-child a {
-    color: $green;
+    color: $off-white;
   }
 
   section ul li:last-child a:hover {

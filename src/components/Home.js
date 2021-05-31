@@ -6,7 +6,7 @@ import { GiCubes } from "react-icons/gi";
 const Home = () => (
   <Fragment>
     <Helmet>
-      <title>Quiz App - Home</title>
+      <title>Jayway Quiz - Home</title>
     </Helmet>
     <div id="home">
       <section>
@@ -15,7 +15,11 @@ const Home = () => (
             <GiCubes className="note-icon" />
           </span>
         </div>
-        <h1>Quiz App</h1>
+        <h1>Jayway Quiz</h1>
+        <h5>
+          How much do you know about
+          <br /> Jayway?
+        </h5>
         <div className="play-button-container">
           <ul>
             <li>
@@ -25,13 +29,8 @@ const Home = () => (
             </li>
           </ul>
         </div>
-        <div className="auth-container">
-          <Link to="/login" className="auth-buttons" id="login-button">
-            Login
-          </Link>
-          <Link to="/register" className="auth-buttons" id="signup-button">
-            Register
-          </Link>
+        <div>
+          <p className="coded-by">Coded by Alexis R. Forbes</p>
         </div>
       </section>
     </div>

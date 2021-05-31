@@ -1,7 +1,19 @@
+#quiz-container {
+  background-image: url("../../assets/img/FONDO-3.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: space-around;
+  height: 100vh;
+  width: 100vw;
+}
+
 .questions {
-  background-color: $off-white;
-  border-left: 5px solid $blue;
+  background-color: rgba(202, 200, 200, 0.1);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 20px;
   width: 80%;
+  height: 90%;
   margin: $lg auto 0 auto;
   padding: $sm $md;
 
@@ -21,7 +33,7 @@
   }
 
   .lifeline-icon {
-    color: $green;
+    color: $red;
     cursor: pointer;
   }
 
@@ -32,6 +44,7 @@
 
   h5 {
     font-size: $md;
+    text-shadow: 0.5px 0.5px 0.5px $off-black;
     margin-bottom: $lg;
     line-height: 1.5;
     text-align: center;
@@ -43,19 +56,20 @@
   }
 
   .option {
-    background-color: $blue;
+    background-color: $off-black;
     border-radius: $button-radius;
     color: $white;
+    font-weight: $lg;
     cursor: pointer;
     margin: $md auto;
     padding: $normal;
     transition: 0.3s linear all;
     text-align: center;
-    width: 90%;
+    width: 60%;
   }
 
   .option:hover {
-    background-color: darken($blue, 20%);
+    background-color: darken($off-black, 20%);
   }
 }
 
@@ -71,31 +85,32 @@
 .button-container button {
   border: none;
   border-radius: 5px;
-  color: $off-white;
+  color: $off-black;
   cursor: pointer;
   font-family: $roboto;
+  font-weight: $md;
   margin-right: $md;
-  padding: $xs $sm;
+  padding: $xs $md;
 }
 
 .button-container button:first-child {
-  background-color: darken($blue, 10%);
+  background-color: darken($off-white, 10%);
   box-shadow: $shadow;
   transition: 0.2 linear all;
 }
 
 .button-container button:first-child:hover {
-  background-color: darken($blue, 20%);
+  background-color: darken($off-white, 20%);
 }
 
 .button-container button:nth-child(2) {
-  background-color: darken($green, 10%);
+  background-color: darken($blue, 10%);
   box-shadow: $shadow;
   transition: 0.2 linear all;
 }
 
 .button-container button:nth-child(2):hover {
-  background-color: darken($green, 20%);
+  background-color: darken($blue, 20%);
 }
 
 .button-container button:last-child {

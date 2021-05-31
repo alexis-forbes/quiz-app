@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from "react";
 import { Helmet } from "react-helmet";
-import { RiAnchorLine, RiHeartAddLine } from "react-icons/ri";
+import { RiHeartAddLine } from "react-icons/ri";
 import M from "materialize-css";
 import classnames from "classnames";
 
-import questions from "../../questions.json";
+import getQuestions from "../../services/questions-service";
 import isEmpty from "../../utils/is-empty";
 import correctNotification from "../../assets/audio/correct-answer.mp3";
 import wrongNotification from "../../assets/audio/wrong-answer.mp3";
@@ -14,7 +14,7 @@ class Play extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      questions, //from import
+      questions: [],
       currentQuestion: {}, //object
       nextQuestion: {}, //empty by default
       previousQuestion: {},
@@ -28,8 +28,9 @@ class Play extends Component {
       hints: 3,
       fiftyFifty: 1,
       usedFiftyFifty: false,
-      plusTen: 1, 
+      plusTen: 1,
       usedPlusTen: false,
+      activePlusTen: false,
       nextButtonDisabled: false,
       previousButtonDisabled: true,
       previousRandomNumbers: [],
@@ -45,15 +46,20 @@ class Play extends Component {
 
   componentDidMount() {
     //Gets called when our component gets mount
-    const { questions, currentQuestion, nextQuestion, previousQuestion } =
-      this.state;
-    this.displayQuestions(
-      questions,
-      currentQuestion,
-      nextQuestion,
-      previousQuestion
-    );
-    this.startTimer();
+    getQuestions().then((res) => {
+      this.setState({
+        questions: res,
+      });
+      // this.state.questions = res;
+      const { questions, currentQuestion, nextQuestion, previousQuestion } =
+        this.state;
+      this.displayQuestions(
+        questions,
+        currentQuestion,
+        nextQuestion,
+        previousQuestion
+      );
+    });
   }
 
   componentWillUnmount() {
@@ -97,15 +103,8 @@ class Play extends Component {
   handleOptionClick = (e) => {
     //if the innerHTML target === answer in our state, the option is correct
     if (e.target.innerHTML.toLowerCase() === this.state.answer.toLowerCase()) {
-      //delay on audio to make sure it has time to play
-      this.correctTimeOut = setTimeout(() => {
-        this.correctSound.current.play();
-      }, 500);
       this.correctAnswer();
     } else {
-      this.wrongTimeOut = setTimeout(() => {
-        this.wrongSound.current.play();
-      }, 500);
       this.wrongAnswer();
     }
   };
@@ -182,6 +181,7 @@ class Play extends Component {
 
   //logic to handle the correct question
   correctAnswer = () => {
+    this.correctSound.current.play();
     M.toast({
       html: "Correct Answer!",
       classes: "toast-valid", //takes an array of classes to style our toast
@@ -211,6 +211,7 @@ class Play extends Component {
 
   //logic to handle the correct question
   wrongAnswer = () => {
+    this.wrongSound.current.play();
     //mobile device will vibrate
     navigator.vibrate(1000);
     M.toast({
@@ -246,6 +247,8 @@ class Play extends Component {
       option.style.visibility = "visible";
     });
 
+    this.startTimer();
+
     this.setState({
       usedFiftyFifty: false,
     });
@@ -254,11 +257,13 @@ class Play extends Component {
   handleHints = () => {
     if (this.state.hints > 0) {
       //retrieve options like an array
-      const options = Array.from(document.querySelectorAll(".option"));
+      const allOptions = Array.from(document.querySelectorAll(".option"));
+      //retrieve visible options like an array
+      let visibleOptions = allOptions.filter((f) => !this.isHidden(f));
       //get index of options that has the answers
       let indexOfAnswer;
       //store answer in index
-      options.forEach((option, index) => {
+      visibleOptions.forEach((option, index) => {
         if (
           option.innerHTML.toLowerCase() === this.state.answer.toLowerCase()
         ) {
@@ -266,9 +271,11 @@ class Play extends Component {
         }
       });
 
+      const maxRandom = visibleOptions.length - 1;
+
       //Generate random# for answer 0-3
       while (true) {
-        const randomNumber = Math.round(Math.random() * 3);
+        const randomNumber = Math.round(Math.random() * maxRandom);
         //check random# is not the same as index of our answer
         //if its the same, we know its the right answer
         if (
@@ -276,7 +283,7 @@ class Play extends Component {
           !this.state.previousRandomNumbers.includes(randomNumber)
         ) {
           //look through each option and if it matches index fo random# hidden
-          options.forEach((option, index) => {
+          visibleOptions.forEach((option, index) => {
             if (index === randomNumber) {
               option.style.visibility = "hidden";
               this.setState((prevState) => ({
@@ -289,9 +296,14 @@ class Play extends Component {
           });
           break;
         }
-        if (this.state.previousRandomNumbers.length >= 3) break;
+        if (this.state.previousRandomNumbers.length >= maxRandom) break;
       }
     }
+  };
+
+  isHidden = (el) => {
+    var style = window.getComputedStyle(el);
+    return style.display === "none" || style.visibility === "hidden";
   };
 
   handleFiftyFifty = () => {
@@ -347,24 +359,38 @@ class Play extends Component {
   };
 
   handlePlusTen = () => {
-    if (this.state.plusTen > 0 && this.state.usedPlusTen === false) {
-
+    if (
+      !this.state.activePlusTen &&
+      this.state.plusTen > 0 &&
+      this.state.usedPlusTen === false
+    ) {
+      this.setState((prevState) => ({
+        activePlusTen: true,
+        plusTen: prevState.plusTen - 1,
+        usedPlusTen: true,
+      }));
     }
-  }
-
-
+  };
 
   startTimer = () => {
-    const countDownTime = Date.now() + 17000;
+    clearInterval(this.interval);
+    let countDownTime = Date.now() + 16000;
     this.interval = setInterval(() => {
       const now = new Date();
+
+      if (this.state.activePlusTen) {
+        countDownTime += 10000;
+        this.setState(() => ({
+          activePlusTen: false,
+        }));
+      }
+
       const distance = countDownTime - now;
 
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       if (distance < 0) {
-        clearInterval(this.interval);
         this.setState(
           {
             time: {
@@ -373,7 +399,8 @@ class Play extends Component {
             },
           },
           () => {
-            this.endGame();
+            clearInterval(this.interval);
+            this.wrongAnswer();
           }
         );
       } else {
@@ -385,9 +412,8 @@ class Play extends Component {
           },
         });
       }
-    }, 1000);
+    }, 0);
   };
-
 
   handleDisableButton = () => {
     if (
@@ -429,9 +455,7 @@ class Play extends Component {
       fiftyFiftyUsed: 1 - state.fiftyFifty,
       hintsUsed: 3 - state.hints,
     };
-    setTimeout(() => {
-      this.props.history.push("/play/quizSummary", playerStats);
-    }, 1000);
+    this.props.history.push("/play/quizSummary", playerStats);
   };
 
   render() {
@@ -447,93 +471,101 @@ class Play extends Component {
     return (
       <Fragment>
         <Helmet>
-          <title>Quiz Page</title>
+          <title>Jayway Quiz Page</title>
         </Helmet>
         <Fragment>
           <audio ref={this.correctSound} src={correctNotification}></audio>
           <audio ref={this.wrongSound} src={wrongNotification}></audio>
           <audio ref={this.buttonSound} src={buttonSound}></audio>
         </Fragment>
-        <div className="questions">
-          <h2>Quiz Mode</h2>
-          <div className="lifeline-container">
-            <p>
-              <span
-                onClick={this.handleFiftyFifty}
-                className="mdi mdi-set-center mdi-24px lifeline-icon"
+        <div id="quiz-container">
+          <div className="questions">
+            <h2>Jayway Quiz</h2>
+            <div className="lifeline-container">
+              <p>
+                <span
+                  onClick={this.handleFiftyFifty}
+                  className="mdi mdi-set-center mdi-24px lifeline-icon"
+                >
+                  <span className="lifeline">{fiftyFifty}</span>
+                </span>
+              </p>
+              <p>
+                <span>
+                  <RiHeartAddLine
+                    data-testid="plusTenButton"
+                    onClick={this.handlePlusTen}
+                    className="ten-seconds lifeline-icon"
+                    size="24px"
+                  />
+                  <span className="lifeline">{plusTen}</span>
+                </span>
+              </p>
+              <p>
+                <span
+                  onClick={this.handleHints}
+                  className="mdi mdi-lightbulb-on-outline mdi-24px lifeline lifeline-icon"
+                ></span>
+                <span className="lifeline">{hints}</span>
+              </p>
+            </div>
+            <div>
+              <p>
+                <span className="left">
+                  {currentQuestionIndex + 1} of {numberOfQuestions}
+                </span>
+                <span className="right">
+                  {time.minutes}:{time.seconds}
+                  <span className="mdi mdi-clock-outline mdi-24px"></span>
+                </span>
+              </p>
+            </div>
+            <h5>{currentQuestion.question}</h5>
+            <div className="options-container">
+              <p
+                onClick={this.handleOptionClick}
+                className="option"
+                data-testid="firstOptionButton"
               >
-                <span className="lifeline">{fiftyFifty}</span>
-              </span>
-            </p>
-            <p>
-              <span>
-                <RiHeartAddLine 
-                  onClick={this.handlePlusTen}
-                  className="ten-seconds lifeline-icon"
-                  size="24px"
-                /><span className="lifeline">{plusTen}</span>
-              </span>
-            </p>
-            <p>
-              <span
-                onClick={this.handleHints}
-                className="mdi mdi-lightbulb-on-outline mdi-24px lifeline lifeline-icon"
-              ></span>
-              <span className="lifeline">{hints}</span>
-            </p>
-          </div>
-          <div>
-            <p>
-              <span className="left">
-                {currentQuestionIndex + 1} of {numberOfQuestions}
-              </span>
-              <span className="right">
-                {time.minutes}:{time.seconds}
-                <span className="mdi mdi-clock-outline mdi-24px"></span>
-              </span>
-            </p>
-          </div>
-          <h5>{currentQuestion.question}</h5>
-          <div className="options-container">
-            <p onClick={this.handleOptionClick} className="option">
-              {currentQuestion.optionA}
-            </p>
-            <p onClick={this.handleOptionClick} className="option">
-              {currentQuestion.optionB}
-            </p>
-          </div>
-          <div className="options-container">
-            <p onClick={this.handleOptionClick} className="option">
-              {currentQuestion.optionC}
-            </p>
-            <p onClick={this.handleOptionClick} className="option">
-              {currentQuestion.optionD}
-            </p>
-          </div>
+                {currentQuestion.optionA}
+              </p>
+              <p onClick={this.handleOptionClick} className="option">
+                {currentQuestion.optionB}
+              </p>
+            </div>
+            <div className="options-container">
+              <p onClick={this.handleOptionClick} className="option">
+                {currentQuestion.optionC}
+              </p>
+              <p onClick={this.handleOptionClick} className="option">
+                {currentQuestion.optionD}
+              </p>
+            </div>
 
-          <div className="button-container">
-            <button
-              //disable class will be called if previousButtonDisabled is true
-              className={classnames("", {
-                disable: this.state.previousButtonDisabled,
-              })}
-              id="previous-button"
-              onClick={this.handleButtonClick}
-            >
-              Previous
-            </button>
-            <button
-              className={classnames("", {
-                disable: this.state.nextButtonDisabled,
-              })}
-              id="next-button"
-              onClick={this.handleButtonClick}
-            >
-              Next
-            </button>
-            <button id="quit-button" onClick={this.handleButtonClick}>
-              Quit
-            </button>
+            <div className="button-container">
+              <button
+                //disable class will be called if previousButtonDisabled is true
+                className={classnames("", {
+                  disable: this.state.previousButtonDisabled,
+                })}
+                id="previous-button"
+                onClick={this.handleButtonClick}
+              >
+                Previous
+              </button>
+              <button
+                className={classnames("", {
+                  disable: this.state.nextButtonDisabled,
+                })}
+                id="next-button"
+                onClick={this.handleButtonClick}
+              >
+                Next
+              </button>
+              <button id="quit-button" onClick={this.handleButtonClick}>
+                Quit
+              </button>
+            </div>
           </div>
         </div>
       </Fragment>
