@@ -161,4 +161,10 @@
     width: 40% !important;
     cursor: pointer;
   }
+  @media (hover: none) and (pointer: coarse) {
+    /* Smartphones and touchscreens */
+    .option:hover {
+      background-color: $off-black !important;
+    }
+  }
 }

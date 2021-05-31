@@ -44,7 +44,7 @@ const QuizInstructions = () => (
         </li>
         <img src={answer} alt="Quiz App answers example" />
         <li>
-          Using the clock icon
+          Using the heart icon
           <span>
             <RiHeartAddLine className="ten-seconds lifeline-icon" size="24px" />
           </span>
@@ -58,8 +58,8 @@ const QuizInstructions = () => (
           <img src={answer} alt="Quiz App answers example" />
         </li>
         <li>
-          Feel free to quit the game at any time. Your score will be revealed
-          afterwards.
+          Feel free to quit the game at any time. Clicking 'Next' button will
+          count as wrong answer. Your score will be revealed afterwards.
         </li>
         <li>The timer starts as soon as the game loads.</li>
       </ul>

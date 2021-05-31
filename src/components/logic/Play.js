@@ -6,6 +6,7 @@ import classnames from "classnames";
 
 import getQuestions from "../../services/questions-service";
 import isEmpty from "../../utils/is-empty";
+import isHidden from "../../utils/is-hidden";
 import correctNotification from "../../assets/audio/correct-answer.mp3";
 import wrongNotification from "../../assets/audio/wrong-answer.mp3";
 import buttonSound from "../../assets/audio/button-sound.mp3";
@@ -297,7 +298,7 @@ class Play extends Component {
   handleHints = () => {
     if (this.state.hints > 0) {
       const allOptions = Array.from(document.querySelectorAll(".option"));
-      let visibleOptions = allOptions.filter((f) => !this.isHidden(f));
+      let visibleOptions = allOptions.filter((f) => !isHidden(f));
       let indexOfAnswer;
       visibleOptions.forEach((option, index) => {
         if (
@@ -338,12 +339,6 @@ class Play extends Component {
         if (this.state.previousRandomNumbers.length >= maxRandom) break;
       }
     }
-  };
-
-  //isHidden function to check if element is visible
-  isHidden = (el) => {
-    var style = window.getComputedStyle(el);
-    return style.display === "none" || style.visibility === "hidden";
   };
 
   //50/50 handler
