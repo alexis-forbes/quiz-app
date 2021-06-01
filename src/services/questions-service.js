@@ -12,6 +12,7 @@ let getQuestions = async () => {
   const q = await response.json();
   return shuffle(q);
 };
+
 let shuffle = (array) => {
   var currentIndex = array.length,
     randomIndex;
@@ -26,7 +27,7 @@ let shuffle = (array) => {
       array[currentIndex],
     ];
   }
-  return array;
+  return array.slice(0, 10);
 };
 
 export default getQuestions;

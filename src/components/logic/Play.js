@@ -213,7 +213,7 @@ class Play extends Component {
     M.toast({
       html: "Correct Answer!",
       classes: "toast-valid",
-      displayLength: 1500,
+      displayLength: 1300,
     });
     this.setState(
       (prevState) => ({
@@ -249,7 +249,7 @@ class Play extends Component {
     M.toast({
       html: "Wrong Answer!",
       classes: "toast-invalid",
-      displayLength: 1500,
+      displayLength: 1300,
     });
     this.setState(
       (prevState) => ({
